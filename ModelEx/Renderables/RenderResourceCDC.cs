@@ -208,29 +208,31 @@ namespace ModelEx
 								{
 									SR1PCTextureFile textureFile;
 									MemoryStream stream;
+									int textureID = 0;
 									if (material.textureID >= 1312)
 									{
 										textureFile = textureFile2;
-										stream = textureFile.GetDataAsStream(material.textureID - 1312);
+										textureID = material.textureID - 1312;
 									}
 									else if (material.textureID >= 1285)
 									{
 										textureFile = textureFile1;
-										stream = textureFile.GetDataAsStream(material.textureID - 1285);
+										textureID = material.textureID - 1285;
 									}
 									else
 									{
 										textureFile = textureFile0;
-										stream = textureFile.GetDataAsStream(material.textureID);
+										textureID = material.textureID;
 									}
 
+									stream = textureFile.GetDataAsStream(textureID);
 									if (stream != null)
 									{
 										String textureName = CDC.Utility.GetSoulReaverPCOrDreamcastTextureName(File.Name, material.textureID) + TextureExtension;
 										AddTexture(stream, textureName);
 										if (!_TexturesAsPNGs.ContainsKey(textureName))
 										{
-											_TexturesAsPNGs.Add(textureName, textureFile.GetTextureAsBitmap(material.textureID));
+											_TexturesAsPNGs.Add(textureName, textureFile.GetTextureAsBitmap(textureID));
 										}
 									}
 								}
