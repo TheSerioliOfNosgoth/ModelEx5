@@ -35,10 +35,10 @@ namespace ModelEx
 			{
 				foreach (Renderable renderable in _renderInstances)
 				{
-					if (renderable is RenderInstance)
+					if (renderable is DynamicInstance)
 					{
-						RenderInstance renderInstance = (RenderInstance)renderable;
-						renderInstance.UpdateModel();
+						DynamicInstance dynamicInstance = (DynamicInstance)renderable;
+						dynamicInstance.UpdateModel();
 					}
 				}
 			}
@@ -50,10 +50,10 @@ namespace ModelEx
 			{
 				foreach (Renderable renderable in _renderInstances)
 				{
-					if (renderable is RenderInstance)
+					if (renderable is DynamicInstance)
 					{
-						RenderInstance renderInstance = (RenderInstance)renderable;
-						renderInstance.UpdateModel(resource);
+						DynamicInstance dynamicInstance = (DynamicInstance)renderable;
+						dynamicInstance.UpdateModel(resource);
 					}
 				}
 			}

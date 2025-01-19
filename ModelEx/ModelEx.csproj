@@ -131,6 +131,7 @@
       <DependentUpon>ProgressWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Renderables\DynamicInstance.cs" />
     <Compile Include="Renderables\Material.cs" />
     <Compile Include="Renderables\MeshMorphingUnit.cs" />
     <Compile Include="Renderables\MeshParser.cs" />
@@ -138,6 +139,7 @@
     <Compile Include="Renderables\MeshPCT.cs" />
     <Compile Include="Renderables\MeshPNT.cs" />
     <Compile Include="Renderables\Mesh.cs" />
+    <Compile Include="Renderables\StaticInstance.cs" />
     <Compile Include="Renderables\VisibilityNode.cs" />
     <Compile Include="Renderables\ModelParser.cs" />
     <Compile Include="Renderables\ModelParserCDC.cs" />

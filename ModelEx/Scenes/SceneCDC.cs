@@ -1,8 +1,10 @@
-﻿using System;
+﻿using CDC;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Linq;
 using System.Text;
 
 namespace ModelEx
@@ -36,7 +38,7 @@ namespace ModelEx
 			{
 				for (int m = 0; m < dataFile.ModelCount; m++)
 				{
-					RenderInstance modelInstance = new RenderInstance(dataFile.Name, m, new SlimDX.Vector3(), new SlimDX.Quaternion(), new SlimDX.Vector3(1.0f, 1.0f, 1.0f));
+					DynamicInstance modelInstance = new DynamicInstance(dataFile.Name, m, new SlimDX.Vector3(), new SlimDX.Quaternion(), new SlimDX.Vector3(1.0f, 1.0f, 1.0f));
 					modelInstance.Name = dataFile.Models[m].Name;
 					lock (_renderInstances)
 					{
@@ -48,8 +50,31 @@ namespace ModelEx
 			{
 				for (int m = 0; m < dataFile.ModelCount; m++)
 				{
-					RenderInstance modelInstance = new RenderInstance(dataFile.Name, m, new SlimDX.Vector3(), new SlimDX.Quaternion(), new SlimDX.Vector3(1.0f, 1.0f, 1.0f));
+					DynamicInstance modelInstance = new DynamicInstance(dataFile.Name, m, new SlimDX.Vector3(), new SlimDX.Quaternion(), new SlimDX.Vector3(1.0f, 1.0f, 1.0f));
 					modelInstance.Name = dataFile.Models[m].Name;
+
+					/*if (m == 0)
+					{
+						SR1Model sr1Model = (SR1Model)dataFile.Models[0];
+						RenderResource shapesResource = RenderManager.Instance.Resources[""];
+						foreach (Sphere sphere in sr1Model.Spheres)
+						{
+							SlimDX.Vector3 position = new SlimDX.Vector3(
+								0.01f * sphere.position.x,
+								0.01f * sphere.position.z,
+								0.01f * sphere.position.y
+							);
+
+							SlimDX.Vector3 scale = new SlimDX.Vector3(1.0f, 1.0f, 1.0f);
+							SlimDX.Quaternion rotation = SlimDX.Quaternion.RotationYawPitchRoll(0.0f, 0.0f, 0.0f);
+
+							ModelParser sphereParser = new ModelParser("sphere");
+							sphereParser.BuildModel(shapesResource, RenderResourceShapes.Shape.Sphere);
+							StaticInstance sphereInstance = new StaticInstance(sphereParser.Model, position, rotation, scale);
+							modelInstance.Attachments.Add(sphereInstance);
+						}
+					}*/
+
 					lock (_renderInstances)
 					{
 						_renderInstances.Add(modelInstance);
@@ -125,7 +150,7 @@ namespace ModelEx
 							scale.Z = -1.0f;
 						}
 
-						RenderInstance introInstance = new RenderInstance(intro.fileName, intro.modelIndex, position, rotation, scale);
+						DynamicInstance introInstance = new DynamicInstance(intro.fileName, intro.modelIndex, position, rotation, scale);
 						introInstance.Name = intro.name;
 
 						lock (_renderInstances)
@@ -180,7 +205,7 @@ namespace ModelEx
 
 						SlimDX.Quaternion rotation = new SlimDX.Quaternion();*/
 
-						RenderInstance instance = new RenderInstance(dataFile.Name, bgInstance.modelIndex + (int)dataFile.PortalCount + 1, position, rotation, scale);
+						DynamicInstance instance = new DynamicInstance(dataFile.Name, bgInstance.modelIndex + (int)dataFile.PortalCount + 1, position, rotation, scale);
 						instance.Name = bgInstance.name;
 
 						lock (_renderInstances)
@@ -198,7 +223,7 @@ namespace ModelEx
 
 			for (int m = 0; m < dataFile.ModelCount; m++)
 			{
-				RenderInstance instance = new RenderInstance(dataFile.Name, m, new SlimDX.Vector3(), new SlimDX.Quaternion(), new SlimDX.Vector3(1.0f, 1.0f, 1.0f), resource);
+				DynamicInstance instance = new DynamicInstance(dataFile.Name, m, new SlimDX.Vector3(), new SlimDX.Quaternion(), new SlimDX.Vector3(1.0f, 1.0f, 1.0f), resource);
 				instance.Name = dataFile.Models[m].Name + "-" + m.ToString();
 				lock (_renderInstances)
 				{
